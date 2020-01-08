@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2d51e9a2-656c-457f-bf33-af2fe0cea634" name="Default Changelist" comment="" />
+    <list default="true" id="2d51e9a2-656c-457f-bf33-af2fe0cea634" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/dragonslayer/hewyratinggenerator/DiceRoller.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/dragonslayer/hewyratinggenerator/Monster.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/hewyRatingGenerator/net/dragonslayer/hewyratinggenerator/Combat.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/hewyRatingGenerator/net/dragonslayer/hewyratinggenerator/Combat.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/hewyRatingGenerator/net/dragonslayer/hewyratinggenerator/Fighter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/hewyRatingGenerator/net/dragonslayer/hewyratinggenerator/Fighter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/hewyRatingGenerator/net/dragonslayer/hewyratinggenerator/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/hewyRatingGenerator/net/dragonslayer/hewyratinggenerator/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/dragonslayer/hewyratinggenerator/Combat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/dragonslayer/hewyratinggenerator/Combat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/dragonslayer/hewyratinggenerator/CombatSquare.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/dragonslayer/hewyratinggenerator/CombatSquare.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/dragonslayer/hewyratinggenerator/Fighter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/dragonslayer/hewyratinggenerator/Fighter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/dragonslayer/hewyratinggenerator/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/dragonslayer/hewyratinggenerator/Main.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,11 +26,18 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1ViKTB90b6BRfjozUH2QYGNdPi6" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
@@ -71,21 +90,21 @@
       <screen x="0" y="0" width="1280" height="689" />
     </state>
     <state x="371" y="92" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1280.689@0.0.1280.689" timestamp="1577731001526" />
-    <state width="1237" height="250" key="GridCell.Tab.0.bottom" timestamp="1577912065189">
+    <state width="1237" height="190" key="GridCell.Tab.0.bottom" timestamp="1578514485328">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state width="1237" height="250" key="GridCell.Tab.0.bottom/0.0.1280.689@0.0.1280.689" timestamp="1577912065189" />
-    <state width="1237" height="250" key="GridCell.Tab.0.center" timestamp="1577912065189">
+    <state width="1237" height="190" key="GridCell.Tab.0.bottom/0.0.1280.689@0.0.1280.689" timestamp="1578514485328" />
+    <state width="1237" height="190" key="GridCell.Tab.0.center" timestamp="1578514485328">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state width="1237" height="250" key="GridCell.Tab.0.center/0.0.1280.689@0.0.1280.689" timestamp="1577912065189" />
-    <state width="1237" height="250" key="GridCell.Tab.0.left" timestamp="1577912065189">
+    <state width="1237" height="190" key="GridCell.Tab.0.center/0.0.1280.689@0.0.1280.689" timestamp="1578514485328" />
+    <state width="1237" height="190" key="GridCell.Tab.0.left" timestamp="1578514485327">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state width="1237" height="250" key="GridCell.Tab.0.left/0.0.1280.689@0.0.1280.689" timestamp="1577912065189" />
-    <state width="1237" height="250" key="GridCell.Tab.0.right" timestamp="1577912065189">
+    <state width="1237" height="190" key="GridCell.Tab.0.left/0.0.1280.689@0.0.1280.689" timestamp="1578514485327" />
+    <state width="1237" height="190" key="GridCell.Tab.0.right" timestamp="1578514485328">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state width="1237" height="250" key="GridCell.Tab.0.right/0.0.1280.689@0.0.1280.689" timestamp="1577912065189" />
+    <state width="1237" height="190" key="GridCell.Tab.0.right/0.0.1280.689@0.0.1280.689" timestamp="1578514485328" />
   </component>
 </project>

@@ -13,27 +13,24 @@ public class Fighter {
     private int currentMovement = 0;
     private int nextAction;
 
-    private String name;
-    public String getName() {
-        return name;
-    }
-
     public int[] getVitality() { return vitality; }
     public int getCurrentVitality() {return currentVitality;}
     public void setCurrentVitality(int currentVitality) {this.currentVitality = currentVitality; }
     public double getStress() {return stress; }
     public void setStress(double stress) {this.stress = stress;}
-    public int getCurrentVitalityCategory() { return currentVitalityCategory; }
     public void setCurrentVitalityCategory(int currentVitalityCategory) { this.currentVitalityCategory = currentVitalityCategory; }
     public int getNextAction() { return nextAction; }
+    public int getKnockBack() { return knockBack;}
 
-    public Fighter(String name) {
-        this.name = name;
+    public Fighter() {
         // the base Fighter is Hewy so you only have instantiate it to get him
-        CombatSquare[] equipment = {new CombatSquare(7, 2, 1, 1,8, 6, 5, "1/D", "1d8+2d6+2", "2/d+3")};
+        CombatSquare[] equipment = {new CombatSquare(8, 2, 1, 0,8, 0, 0, "4", "2d8", "0", 'r'),
+                                    new CombatSquare(7, 2, 1, 1,8, 6, 0, "4", "1d8+2d6+2", "0", 'm'),
+                                    new CombatSquare(8, 2, 1, 1,8, 2, 0, "4", "1d12+4", "0", 'm'),
+                                    new CombatSquare(10, 2, 1, 0,14, 14, 9, "4", "1d8+1d6+1d4+2", "2/d+4", 'm')};
         this.equipped = equipment[0];
         double[] movement = new double[5];
-        movement[0] = 2.5;
+        movement[0] = 0;
         movement[1] = 5;
         movement[2] = 10;
         movement[3] = 15;
@@ -48,16 +45,11 @@ public class Fighter {
         this.knockBack = knockBack;
         this.equipment = equipment;
         this.movement = movement;
+        this.equipped = equipment[0];
     }
     public Fighter(int vitality, int knockBack, CombatSquare[] equipment, double[] movement) {
         this(knockBack, equipment, movement);
         int categorySize = vitality / 4;
-        calculateVitalityCategories(categorySize);
-    }
-
-    public Fighter(String vitality, int knockBack, CombatSquare[] equipment, double[] movement) {
-        this(knockBack, equipment, movement);
-        int categorySize = rollDice(vitality, false) / 4;
         calculateVitalityCategories(categorySize);
     }
 
@@ -72,69 +64,17 @@ public class Fighter {
         }
     }
 
-    public int rollDice (String dice) {
-        return rollDice(dice, true);
-    }
-
-    public int rollDice (String dice, boolean explosions) {
-        int result = 0;
-        String rollPieces[] = dice.split("\\+");
-
-        for (String rollPiece: rollPieces) {
-            if (rollPiece.contains("d")) {
-                String dicePieces[] = rollPiece.split("d");
-                int numberOfRolls;
-                if (dicePieces[0] == "")
-                    numberOfRolls = 1;
-                else
-                    numberOfRolls = Integer.parseInt(dicePieces[0]);
-                int valueOfDice = Integer.parseInt(dicePieces[1]);
-
-                result = result + getDiceResult(numberOfRolls, valueOfDice, explosions);
-            } else {
-                result = result + Integer.parseInt(rollPiece);
-            }
-        }
-
-        return result;
-    }
-
-    private int getDiceResult (int numberOfRolls, int valueOfDice, boolean explosions) {
-        int result = 0;
-
-        for (int i = 0; i < numberOfRolls; i++) {
-            int diceResult = (int)(valueOfDice * Math.random()) + 1;
-            if (diceResult == valueOfDice & explosions) {
-                result = result + diceResult;
-                int explosionResult;
-
-                if (valueOfDice == 20)
-                    explosionResult = getDiceResult(1, 6, true) -1;
-                else if (valueOfDice == 100)
-                    explosionResult = getDiceResult(1, 20,true) -1;
-                else
-                    explosionResult = getDiceResult(1, valueOfDice, true) -1;
-
-                result = result + explosionResult;
-            } else {
-                result = result + diceResult;
-            }
-        }
-
-        return result;
-    }
-
-    public void setEquipment (String enemyDR) {
+    public void grabWeapon (String enemyDR, char type) {
         CombatSquare currentSelected = this.equipped;
         int currentDice = this.equipped.getDamageDiceCount();
 
         for (CombatSquare square: this.equipment) {
             int newDice = square.getDamageDiceCount();
 
-            if (enemyDR.contains("/") & newDice < currentDice) {
+            if (enemyDR.contains("/") & newDice < currentDice & square.getType() == type) {
                 currentSelected = square;
                 currentDice = newDice;
-            } else if (newDice > currentDice) {
+            } else if (newDice > currentDice & square.getType() == type) {
                 currentSelected = square;
                 currentDice = newDice;
             }
@@ -145,10 +85,10 @@ public class Fighter {
 
     public void inflictStress (double inflictedStress) { setStress(getStress() + inflictedStress); }
 
-    public boolean takeDamage (int damage, int diceCount) {
-        return takeDamage(damage, diceCount, false);
+    public void takeDamage (int damage, int diceCount) {
+        takeDamage(damage, diceCount, false);
     }
-    public boolean takeDamage (int damage, int diceCount, boolean parried) {
+    public void takeDamage (int damage, int diceCount, boolean parried) {
         if (this.getDr().contains("/"))
             damage = damage - calculateSlashDr(diceCount, this.equipped.getDr());
         else
@@ -162,8 +102,6 @@ public class Fighter {
 
         setCurrentVitality(getCurrentVitality() + damage);
 
-        // Need to add in knock backs as well
-
         int newCurrent = getCurrentVitality();
         int[] vitality = getVitality();
 
@@ -172,11 +110,6 @@ public class Fighter {
                 setCurrentVitalityCategory(i);
             }
         }
-
-        if (getCurrentVitalityCategory() >= 4)
-            return true;
-
-        return false;
     }
 
     private int calculateSlashDr (int diceCount, String dr) {
@@ -191,13 +124,58 @@ public class Fighter {
         return base + bonus;
     }
 
-    public int dealDamage() { return rollDice(this.equipped.getDamage()); }
-    public int rollAttack() { return rollDice("1d20+" + this.equipped.getAttack()); }
-    public int rollDefense() { return rollDice("1d20+" + this.equipped.getDefence()); }
+    public int decideAction(Fighter enemy, int distance, DiceRoller diceRollerHelper, int count) {
+        // resolve movement
+        double movementSpeedMargin = currentMovement - 2 >= 0 ? movement[currentMovement] + movement[currentMovement - 2] : movement[currentMovement] ;
+        if (distance > movementSpeedMargin && currentMovement < 4)
+            currentMovement += 1;
+        else if (distance == movementSpeedMargin) { }
+        else
+            currentMovement = currentMovement - 2 >= 0 ? currentMovement - 2 : currentMovement - 1 >= 0 ? currentMovement - 1 : currentMovement;
+
+        distance -= movement[currentMovement];
+
+        // resolve attack
+        if (distance <= this.equipped.getMeasure() & this.nextAction == count) {
+            this.grabWeapon(enemy.getDr(), 'm');
+            int enemyDefense = diceRollerHelper.rollDice(enemy.getDefenseDice());
+            int actorAttack = diceRollerHelper.rollDice(this.getAttackDice());
+
+            if (actorAttack > enemyDefense & actorAttack > enemyDefense + enemy.getParry()) {
+                int damage = diceRollerHelper.rollDice(this.getWeaponDamage());
+                // resolve knock back
+                if (damage > enemy.getKnockBack()) {
+                    distance = distance + (int)(damage / enemy.getKnockBack());
+                }
+                enemy.takeDamage(damage, this.getDiceCount());
+            } else if (actorAttack > enemyDefense & actorAttack <= enemyDefense + enemy.getParry())
+                System.out.print("");
+        } else if (this.nextAction == count && this.equipped.getType() == 'r') {
+            int enemyDefense = diceRollerHelper.rollDice("1d8");
+            int actorAttack = diceRollerHelper.rollDice(this.getAttackDice());
+
+            if (actorAttack > enemyDefense & actorAttack > enemyDefense) {
+                int damage = diceRollerHelper.rollDice(this.getWeaponDamage());
+                enemy.takeDamage(damage, this.getDiceCount());
+            }
+        }
+
+      nextAction = nextAction + this.equipped.getSpeed();
+      return distance;
+    }
+
+    public boolean checkIfDead () {
+        if ((vitality[4] - currentVitality) >= 0)
+            return false;
+        return true;
+    }
+
+    private void specialAbility(String resolution) { }
+
+    public String getWeaponDamage() { return this.equipped.getDamage(); }
+    public String getAttackDice() { return "1d20+" + this.equipped.getAttack(); }
+    public String getDefenseDice() { return "1d20+" + this.equipped.getDefence(); }
     public int getParry() { return this.equipped.getParry(); }
-    public int getMeasure() { return this.equipped.getMeasure(); }
     public String getDr() {return this.equipped.getDr(); }
-    public void setInitialAction() { nextAction = this.equipped.getInit(); }
-    public void increaseAction() { nextAction = nextAction + this.equipped.getSpeed(); }
     public int getDiceCount() { return this.equipped.getDamageDiceCount(); }
 }
